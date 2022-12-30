@@ -20,10 +20,12 @@ jobs:
         with:
           node-version: 18
           cache: 'npm'
+
       - name: Install and Build
         run: |
           npm install
           npm run build
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
@@ -47,7 +49,7 @@ jobs:
       - run: supabase link --project-ref $PROJECT_ID
       - run: supabase db push
   deploy:
-    needs: migrate 
+    needs: migrate
     name: Deploy on Cloudflare
     runs-on: ubuntu-latest
     steps:
@@ -55,6 +57,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build
+
       - name: Publish
         uses: cloudflare/wrangler-action@2.0.0
         with:
