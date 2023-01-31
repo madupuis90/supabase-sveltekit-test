@@ -19,12 +19,12 @@
 	{#if data.session}
 		<p>Welcome, {data.session.user.email}</p>
 
-		<form action="/deconnexion" method="POST" use:enhance={submitLogout}>
+		<form action="/logout" method="POST" use:enhance={submitLogout}>
 			<button type="submit">Logout</button>
 		</form>
 	{:else}
 		<div>
-			<a href="/connexion">Se connecter</a>
+			<a href="/login">Se connecter</a>
 		</div>
 	{/if}
 </main>
