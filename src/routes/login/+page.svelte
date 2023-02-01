@@ -1,18 +1,27 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
+	import type { ActionData } from './$types';
 
-	export let form: FormData;
+	// TODO: why isn't actiondata type generate properly
+	export let form: any;
 </script>
 
-{JSON.stringify(form)}
-<main>
-	<h1>Login</h1>
-	<form action="?/login" method="POST" class="auth-form" use:enhance>
-		<label for=""> Email </label>
-		<input type="text" value="" name="email" />
-		<label for=""> Password </label>
-		<input type="password" value="" name="password" />
-		<button type="submit" class="btn btn-primary">Login</button>
-		<button type="submit" formaction="?/register" class="btn btn-primary">Register</button>
-	</form>
-</main>
+<h1>Login</h1>
+<form action="?/login" method="POST">
+	<label for=""> Email </label>
+	<input type="text" value={form?.data?.email ?? ''} name="email" />
+	{#if form?.errors?.email}
+		<span>{form?.errors?.email[0]}</span>
+	{/if}
+
+	<label for=""> Password </label>
+	<input type="password" value="" name="password" />
+	{#if form?.errors?.password}
+		<span>{form?.errors?.password[0]}</span>
+	{/if}
+
+	<button type="submit">Login</button>
+	<button type="submit" formaction="?/register">Register</button>
+</form>
+{#if form?.error}
+	<span>{form?.error}</span>
+{/if}
