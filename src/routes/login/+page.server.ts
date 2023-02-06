@@ -1,5 +1,5 @@
 import { AuthApiError } from '@supabase/supabase-js';
-import { fail, redirect } from '@sveltejs/kit';
+import { fail, redirect, type ActionFailure } from '@sveltejs/kit';
 import { z } from 'zod';
 import type { Actions } from './$types';
 
@@ -9,7 +9,7 @@ const registerSchema = z.object({
     .email('invalid email'),
   password: z
     .string({ required_error: 'password required' })
-    .min(8, 'password need to be at least 8 characters')
+    .min(8, 'password need to be at least 8 characters'),
 });
 
 export const actions: Actions = {
@@ -18,7 +18,7 @@ export const actions: Actions = {
 
     const { data, error: err } = await locals.sb.auth.signInWithPassword({
       email: formData.email as string,
-      password: formData.password as string
+      password: formData.password as string,
     });
 
     if (err) {
@@ -31,11 +31,11 @@ export const actions: Actions = {
         });
       }
       return fail(500, {
-        message: 'Server error. Try again later.'
+        error: 'Server error. Try again later.'
       });
     }
 
-    throw redirect(303, '/');
+    throw redirect(303, '/kingdom');
   },
 
   register: async ({ request, locals }) => {
@@ -59,17 +59,18 @@ export const actions: Actions = {
     });
 
     if (err) {
+      console.log(err);
       if (err instanceof AuthApiError && err.status === 400) {
         return fail(400, {
           error: 'Invalid credentials'
         });
       }
       return fail(500, {
-        message: 'Server error. Try again later.'
+        error: 'Server error. Try again later.'
       });
     }
 
-    // redirect to home page
-    throw redirect(303, '/');
+    // redirect to kingdom page
+    throw redirect(303, '/kingdom');
   }
 };

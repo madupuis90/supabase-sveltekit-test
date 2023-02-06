@@ -1,8 +1,10 @@
 import { getServerSession } from '@supabase/auth-helpers-sveltekit';
+import { fail } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
 
 export const load: LayoutServerLoad = async (event) => {
-	return {
-		session: await getServerSession(event)
-	};
+  return {
+    session: await getServerSession(event),
+    profile: event.locals.profile
+  };
 };

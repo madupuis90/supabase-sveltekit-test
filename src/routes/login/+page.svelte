@@ -1,10 +1,15 @@
 <script lang="ts">
 	import type { ActionData } from './$types';
 
-	// TODO: why isn't actiondata type generate properly
+	// TODO change to ActionData once the patch is released: https://github.com/sveltejs/kit/pull/8877
 	export let form: any;
 </script>
 
+{#if form?.error}
+  <div>
+    {form.error}
+  </div>
+{/if}
 <h1>Login</h1>
 <form action="?/login" method="POST">
 	<label for=""> Email </label>
@@ -22,6 +27,3 @@
 	<button type="submit">Login</button>
 	<button type="submit" formaction="?/register">Register</button>
 </form>
-{#if form?.error}
-	<span>{form?.error}</span>
-{/if}
