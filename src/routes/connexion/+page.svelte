@@ -10,8 +10,8 @@
     {form.error}
   </div>
 {/if}
-<h1>Login</h1>
-<form action="?/login" method="POST">
+<h1>Connexion</h1>
+<form action="?/connexion" method="POST">
 	<label for=""> Email </label>
 	<input type="text" value={form?.data?.email ?? ''} name="email" />
 	{#if form?.errors?.email}
@@ -24,6 +24,6 @@
 		<span>{form?.errors?.password[0]}</span>
 	{/if}
 
-	<button type="submit">Login</button>
-	<button type="submit" formaction="?/register">Register</button>
+	<button type="submit">Connexion</button>
+	<button type="submit" formaction="?/enregister">Register</button>
 </form>

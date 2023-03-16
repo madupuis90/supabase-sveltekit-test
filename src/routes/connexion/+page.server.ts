@@ -13,7 +13,7 @@ const registerSchema = z.object({
 });
 
 export const actions: Actions = {
-  login: async ({ request, locals }) => {
+  connexion: async ({ request, locals }) => {
     const formData = Object.fromEntries(await request.formData());
 
     const { data, error: err } = await locals.sb.auth.signInWithPassword({
@@ -35,10 +35,10 @@ export const actions: Actions = {
       });
     }
 
-    throw redirect(303, '/kingdom');
+    throw redirect(303, '/royaume');
   },
 
-  register: async ({ request, locals }) => {
+  enregister: async ({ request, locals }) => {
     const formData = Object.fromEntries(await request.formData());
 
     const result = registerSchema.safeParse(formData);
@@ -58,6 +58,8 @@ export const actions: Actions = {
       password: result.data.password
     });
 
+    console.log(data, err);
+
     if (err) {
       console.log(err);
       if (err instanceof AuthApiError && err.status === 400) {
@@ -71,6 +73,6 @@ export const actions: Actions = {
     }
 
     // redirect to kingdom page
-    throw redirect(303, '/kingdom');
+    throw redirect(303, '/royaume');
   }
 };

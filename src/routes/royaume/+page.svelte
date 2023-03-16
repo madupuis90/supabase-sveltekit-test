@@ -5,7 +5,7 @@
 </script>
 
 <div>
-  Welcome to your Kingdom! Here you can see a summary of what is happening in your realm
+  Bienvenue dans ton Royaume! Ici tu peux gérer ton domaine de la façon que tu veux!
 </div>
 
 <div>

@@ -9,6 +9,7 @@ const profileSchema = z.object({
   username: z
     .string({ required_error: 'username is required' })
     .min(3, 'username needs to be at least 3 characters')
+    // TODO: regex not working
     .regex(/[a-zA-Z]+/, 'username can only be letters'),
   //TODO: figure out how to type a valid error message
   race: z
@@ -22,7 +23,6 @@ export const actions: Actions = {
     const formData = Object.fromEntries(await request.formData());
 
     const result = profileSchema.safeParse(formData);
-
     if (!result.success) {
       // return error to client 
       return {
@@ -55,7 +55,7 @@ export const actions: Actions = {
     }
 
     // redirect to home page
-    throw redirect(301, '/kingdom');
+    throw redirect(301, '/royaume');
 
   }
 

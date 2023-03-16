@@ -20,16 +20,16 @@ export const handle: Handle = async ({ event, resolve }) => {
   event.locals.profile = profile;
 
   // Protected routes for authenticated users
-  if (event.url.pathname.startsWith('/kingdom')) {
+  if (event.url.pathname.startsWith('/royaume')) {
     if (!session) {
       throw redirect(303, '/')
     }
-    if (!profile) {
-      throw redirect(303, '/profile')
+    if (!profile.username) {
+      throw redirect(303, '/profil')
     }
   }
 
-  if (event.url.pathname.startsWith('/profile')) {
+  if (event.url.pathname.startsWith('/profil')) {
     if (!session) {
       throw redirect(303, '/')
     }
